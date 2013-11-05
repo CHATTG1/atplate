@@ -1,0 +1,26 @@
+#osx stuff
+.DS_Store
+._.DS_Store
+
+#general java
+*.class
+*.war
+*.jar
+
+# eclipse stuffs
+.settings/*
+.classpath
+.project
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+
+#maven stuffs
+target/
+
+#testing stuffs
+classpath
+epmd.out
+
