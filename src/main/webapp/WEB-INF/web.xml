@@ -21,6 +21,7 @@ id="WebApp_ID" version="3.0">
 		<param-name>resteasy.resources</param-name>
 		<param-value>
 			com.atplate.rest.HealthCheckService,
+			com.atplate.rest.ImageOverlayService
 		</param-value>
 	</context-param>
 	<listener>

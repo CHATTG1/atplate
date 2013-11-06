@@ -9,6 +9,7 @@
     <url>http://maven.apache.org</url>
     <packaging>war</packaging>
     <properties>
+        <zxing.version>2.2</zxing.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jetty.version>8.1.12.v20130726</jetty.version>
         <spring.version>3.1.2.RELEASE</spring.version>
@@ -101,6 +102,11 @@
                     <artifactId>jasper-runtime</artifactId>
                 </exclusion>
             </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.google.zxing</groupId>
+            <artifactId>core</artifactId>
+            <version>${zxing.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.hbase</groupId>
