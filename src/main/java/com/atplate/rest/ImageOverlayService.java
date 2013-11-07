@@ -218,11 +218,11 @@ public class ImageOverlayService extends BaseService {
                 RenderingHints.VALUE_ANTIALIAS_ON);
             g2.setPaint(Color.RED);
             g2.setFont(sizedFont);
-            g2.drawString("ATPLATE.COM", 70, 30);
+            g2.drawString("ATPLATE.COM", 75, 30);
 
             String label = "SOME MORE TEXT";
-            double x = 160;
-            double y = 160;
+            double x = 170;
+            double y = 170;
             double theta = 270 * java.lang.Math.PI/180;
             /**
              * theta (the rotation angle) is in radians.
@@ -235,7 +235,7 @@ public class ImageOverlayService extends BaseService {
             AffineTransform fontAT = new AffineTransform();
             fontAT.rotate(theta);
             Font theDerivedFont = font.deriveFont(fontAT);
-            Font theDerivedsizedFont = theDerivedFont.deriveFont(12f);
+            Font theDerivedsizedFont = theDerivedFont.deriveFont(13f);
 
             // set the derived font in the Graphics2D context
             g2.setFont(theDerivedsizedFont);
