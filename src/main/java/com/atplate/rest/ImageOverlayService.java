@@ -19,21 +19,27 @@
 
 package com.atplate.rest;
 
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
+import java.awt.AlphaComposite;
+import java.awt.Composite;
+import java.awt.Graphics;
+import java.awt.geom.Rectangle2D;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.awt.geom.AffineTransform;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Hashtable;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.FontFormatException;
+import java.util.List;
 
 import javax.imageio.ImageIO;
-import java.util.List;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -85,12 +91,12 @@ public class ImageOverlayService extends BaseService {
             /**
              * Read a background image
              */
-            BufferedImage bgImage = readImage("/home/preilly/projects/atplate/background.jpg");
-
-            /**
-             * Read a foreground image
-             */
-            //BufferedImage fgImage = readImage("/home/preilly/projects/atplate/foreground.jpg");
+            BufferedImage bgImage = null;
+            try {
+                bgImage = ImageIO.read(ImageOverlayService.class.getClassLoader().getResourceAsStream("background.jpg"));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             int size = 145;
 
@@ -206,10 +212,16 @@ public class ImageOverlayService extends BaseService {
             InputStream is = ImageOverlayService.class.getClassLoader().getResourceAsStream("04B_03__.TTF");
             Font font = Font.createFont(Font.TRUETYPE_FONT, is);
             Font sizedFont = font.deriveFont(8f);
-            // Draw some blue text.
-            g.setPaint(Color.blue);
-            g.setFont(sizedFont);
-            g.drawString("ATPLATE.COM", 27, 27);
+
+            Graphics2D g2 = (Graphics2D) g;
+            g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                RenderingHints.VALUE_ANTIALIAS_ON);
+            g2.setPaint(Color.RED);
+            g2.setFont(sizedFont);
+            int angle = 12;
+            g2.rotate(-2 * Math.PI / angle);
+            g2.drawString("ATPLATE.COM", 70, 30);
+            g2.dispose();
         } catch (IOException e) {
             e.printStackTrace();
         } catch (FontFormatException e) {
@@ -221,24 +233,9 @@ public class ImageOverlayService extends BaseService {
     }
 
     /**
-     * This method reads an image from the file
-     * @param fileLocation -- > eg. "/home/preilly/projects/atplate/background.jpg"
-     * @return BufferedImage of the file read
-     */
-    public static BufferedImage readImage(String fileLocation) {
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File(fileLocation));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return img;
-    }
-
-    /**
      * This method writes a buffered image to a file
      * @param img -- > BufferedImage
-     * @param fileLocation --> e.g. "/home/preilly/projects/atplate/background.jpg"
+     * @param fileLocation --> e.g. "background.jpg"
      * @param extension --> e.g. "jpg","gif","png"
      */
     public static void writeImage(BufferedImage img, String fileLocation,
