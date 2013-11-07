@@ -88,6 +88,7 @@ public final class ConfigFactory {
 
         PropertiesConfiguration config = new LocalizedPropertiesConfiguration(env);
         try {
+            System.out.println("Stream" + stream);
             config.load(stream);
         } catch (ConfigurationException ce) {
             LOGGER.info("caught configuration exception {}", ce);

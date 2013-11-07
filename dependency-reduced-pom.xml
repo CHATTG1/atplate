@@ -225,7 +225,7 @@
           <contextPath>/atplate</contextPath>
           <connectors>
             <connector>
-              <port>9099</port>
+              <port>7000</port>
               <maxIdleTime>60000</maxIdleTime>
             </connector>
           </connectors>
