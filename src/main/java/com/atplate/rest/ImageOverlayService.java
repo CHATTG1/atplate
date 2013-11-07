@@ -206,7 +206,7 @@ public class ImageOverlayService extends BaseService {
          * Draw foreground image at location (0,0)
          * Change (x,y) value as required.
          */
-        g.drawImage(fgImage, 27, 27, null);
+        g.drawImage(fgImage, 25, 25, null);
 
         try {
             InputStream is = ImageOverlayService.class.getClassLoader().getResourceAsStream("04B_03__.TTF");
@@ -221,7 +221,7 @@ public class ImageOverlayService extends BaseService {
             g2.drawString("ATPLATE.COM", 75, 30);
 
             String label = "SOME MORE TEXT";
-            double x = 170;
+            double x = 195;
             double y = 170;
             double theta = 270 * java.lang.Math.PI/180;
             /**
@@ -231,10 +231,15 @@ public class ImageOverlayService extends BaseService {
              * depending on whether you want the text top-top-bottom or bottom-to-top
              *
              */
+
+            InputStream is2 = ImageOverlayService.class.getClassLoader().getResourceAsStream("F25_Bank_Printer.ttf");
+            Font font2 = Font.createFont(Font.TRUETYPE_FONT, is2);
+            Font sizedFont2 = font2.deriveFont(8f);
+
             // Create a rotation transformation for the font.
             AffineTransform fontAT = new AffineTransform();
             fontAT.rotate(theta);
-            Font theDerivedFont = font.deriveFont(fontAT);
+            Font theDerivedFont = sizedFont2.deriveFont(fontAT);
             Font theDerivedsizedFont = theDerivedFont.deriveFont(13f);
 
             // set the derived font in the Graphics2D context
