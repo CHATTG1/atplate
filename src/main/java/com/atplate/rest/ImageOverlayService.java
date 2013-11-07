@@ -29,6 +29,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Hashtable;
 import java.awt.Color;
+import java.awt.Font;
+import java.awt.FontFormatException;
 
 import javax.imageio.ImageIO;
 import java.util.List;
@@ -182,8 +184,9 @@ public class ImageOverlayService extends BaseService {
             return null;
         }
 
-        /**Create a Graphics  from the background image**/
+        /**Create a Graphics from the background image**/
         Graphics2D g = bgImage.createGraphics();
+
         /**Set Antialias Rendering**/
         g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
                 RenderingHints.VALUE_ANTIALIAS_ON);
@@ -198,6 +201,20 @@ public class ImageOverlayService extends BaseService {
          * Change (x,y) value as required.
          */
         g.drawImage(fgImage, 27, 27, null);
+
+        try {
+            InputStream is = ImageOverlayService.class.getClassLoader().getResourceAsStream("04B_03__.TTF");
+            Font font = Font.createFont(Font.TRUETYPE_FONT, is);
+            Font sizedFont = font.deriveFont(8f);
+            // Draw some blue text.
+            g.setPaint(Color.blue);
+            g.setFont(sizedFont);
+            g.drawString("ATPLATE.COM", 27, 27);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (FontFormatException e) {
+            e.printStackTrace();
+        }
 
         g.dispose();
         return bgImage;
