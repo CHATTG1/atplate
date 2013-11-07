@@ -206,7 +206,7 @@ public class ImageOverlayService extends BaseService {
          * Draw foreground image at location (0,0)
          * Change (x,y) value as required.
          */
-        g.drawImage(fgImage, 25, 25, null);
+        g.drawImage(fgImage, 22, 25, null);
 
         try {
             InputStream is = ImageOverlayService.class.getClassLoader().getResourceAsStream("04B_03__.TTF");
