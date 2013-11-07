@@ -218,9 +218,34 @@ public class ImageOverlayService extends BaseService {
                 RenderingHints.VALUE_ANTIALIAS_ON);
             g2.setPaint(Color.RED);
             g2.setFont(sizedFont);
-            int angle = 12;
-            g2.rotate(-2 * Math.PI / angle);
             g2.drawString("ATPLATE.COM", 70, 30);
+
+            String label = "SOME MORE TEXT";
+            double x = 160;
+            double y = 160;
+            double theta = 270 * java.lang.Math.PI/180;
+            /**
+             * theta (the rotation angle) is in radians.
+             * For vertical text, use 90 * java.lang.Math.PI/180
+             * or  270 * java.lang.Math.PI/180
+             * depending on whether you want the text top-top-bottom or bottom-to-top
+             *
+             */
+            // Create a rotation transformation for the font.
+            AffineTransform fontAT = new AffineTransform();
+            fontAT.rotate(theta);
+            Font theDerivedFont = font.deriveFont(fontAT);
+            Font theDerivedsizedFont = theDerivedFont.deriveFont(12f);
+
+            // set the derived font in the Graphics2D context
+            g2.setFont(theDerivedsizedFont);
+            g2.setPaint(Color.BLACK);
+            // Render a string using the derived font
+            g2.drawString(label, (int)x, (int)y);
+
+            // put the original font back
+            g2.setFont(font);
+
             g2.dispose();
         } catch (IOException e) {
             e.printStackTrace();
