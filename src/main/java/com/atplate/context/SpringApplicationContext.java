@@ -2,13 +2,13 @@
  * Author: Patrick Reilly <preilly@php.net>
  *
  * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.	See the NOTICE file distributed with
+ * contributor license agreements.  See the NOTICE file distributed with
  * this work for additional information regarding copyright ownership.
  * The ASF licenses this file to You under the Apache License, Version 2.0
  * (the "License"); you may not use this file except in compliance with
- * the License.	 You may obtain a copy of the License at
+ * the License.  You may obtain a copy of the License at
  *
- *	  http://www.apache.org/licenses/LICENSE-2.0
+ *    http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,20 +17,27 @@
  * limitations under the License.
  */
 
-package com.atplate;
+package com.atplate.context;
 
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 
-public class ApplicationContextProvider implements ApplicationContextAware {
-    private static ApplicationContext applicationContext;
+public final class SpringApplicationContext implements ApplicationContextAware {
 
-    public static ApplicationContext getApplicationContext() {
-        return applicationContext;
+    private static ApplicationContext appContext;
+
+    // Private constructor prevents instantiation from other classes
+    private SpringApplicationContext() {}
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext)
+            throws BeansException {
+        appContext = applicationContext;
+
     }
 
-    public void setApplicationContext(ApplicationContext ctx) throws BeansException {
-        applicationContext = ctx;
+    public static Object getBean(String beanName) {
+        return appContext.getBean(beanName);
     }
 }

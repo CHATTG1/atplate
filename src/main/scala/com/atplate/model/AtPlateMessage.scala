@@ -19,18 +19,44 @@
 
 package com.atplate.model
 
+import com.google.gson.GsonBuilder
 import java.sql.Date
 
-case class TaggedMessage (
-  @reflect.BeanProperty var rowId : Long,
-  @reflect.BeanProperty var senderId : Long,
-  @reflect.BeanProperty var recipientId : Long,
-  @reflect.BeanProperty var mUnixTimestamp : Long,
-  @reflect.BeanProperty var mTimestamp : Date,
-  @reflect.BeanProperty var mText : String,
-  @reflect.BeanProperty var visibility : Integer,
-  @reflect.BeanProperty var senderIp : Array[String],
-  @reflect.BeanProperty var isRead : Integer,
-  @reflect.BeanProperty var isDeleted : Integer,
-  @reflect.BeanProperty var mType : Integer,
-  @reflect.BeanProperty var json : String)
+object AtPlateMessage {
+  val gson = new GsonBuilder().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create()
+
+  def fromJson(json: String): AtPlateMessage = {
+    gson.fromJson(json, classOf[AtPlateMessage])
+  }
+}
+
+class AtPlateMessage extends Cloneable {
+  @reflect.BeanProperty var rowId : Long = 0
+  @reflect.BeanProperty var senderId : Long = 0
+  @reflect.BeanProperty var recipientId : Long = 0
+  @reflect.BeanProperty var mUnixTimestamp : Long = 0
+  @reflect.BeanProperty var mText : String = ""
+  @reflect.BeanProperty var visibility : Int = 0
+  @reflect.BeanProperty var senderIp : Array[String] = Array()
+  @reflect.BeanProperty var isRead : Int = 0
+  @reflect.BeanProperty var isDeleted : Int = 0
+  @reflect.BeanProperty var json : String = ""
+
+  override def clone = this
+
+  def getDate: Date = new Date(mUnixTimestamp / 1000L)
+
+  def setSenderIpString(ip: String) = {
+    senderIp = ip match {
+      case _: String => ip.split(",")
+      case _ => null
+    }
+  }
+
+  def getSenderIpString: String = senderIp match {
+    case _: Array[String] => senderIp.mkString(",")
+    case _ => null
+  }
+
+  def toJson: String = AtPlateMessage.gson.toJson(this)
+}
