@@ -3,7 +3,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.atplate</groupId>
     <artifactId>atplate</artifactId>
-    <version>1.0</version>
+    <version>0.1</version>
     <name>atplate</name>
     <description>atplate project</description>
     <url>http://maven.apache.org</url>
